@@ -139,3 +139,22 @@ def std_top(wlen_min, wlen_max, m, p):
   theta = 0.5 * (theta_min + theta_max)
   dd = -derivative(lambda x: top(mpi, 1, R, x, theta), mu) * std
   return dd
+
+
+# Highland formula function
+def highland_theta(p, beta, z, dx, X0):
+  """
+    Parameters:
+        p: momentum in MeV/c
+        beta: v/c
+        z: particle charge (in units of e)
+        dx: step size in cm
+        X0: radiation length of material in cm
+    Returns:
+        RMS scattering angle in milliradians
+    """
+  if dx <= 0 or X0 <= 0:
+    return 0.0
+  theta0_rad = (13.6 / (beta * p)) * z * np.sqrt(
+      dx / X0) * (1 + 0.038 * np.log(dx / X0))
+  return theta0_rad * 1000  # convert to mrad
