@@ -11,6 +11,7 @@ packages = ["cairo", "ffmpeg-full", "freetype", "ghostscript", "gobject-introspe
 LANG = "en_US.UTF-8"
 
 [workflows]
+runButton = "Straggling"
 
 [[workflows.workflow]]
 name = "Resolution"
@@ -20,3 +21,12 @@ author = 3421973
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python3 resolution.py"
+
+[[workflows.workflow]]
+name = "Straggling"
+mode = "sequential"
+author = 3421973
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 straggling.py"
