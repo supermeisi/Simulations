@@ -11,10 +11,10 @@ import matplotlib.patches as patches
 # parameters
 steps = 100
 c = 3e8  #Speed of light
-R = 0.8  #Size radiator [m]
+R = 1  #Size radiator [m]
 d = 1.1  #Distance to interaction point [m]
 D = 20e-3  #Radiator thickness [m]
-d_fel = 400e-3  #Focusing optics length [m]
+d_fel = 0  #Focusing optics length [m]
 theta_max = 35 * math.pi / 180
 theta_min = 5 * math.pi / 180
 
@@ -137,6 +137,5 @@ def std_top(wlen_min, wlen_max, m, p):
   I0 = photons(wlen_min, wlen_max, mpi, 1)
   std = math.sqrt(I[0] / I0)
   theta = 0.5 * (theta_min + theta_max)
-  dist = distance(R, d, theta, D / 2)
-  dd = -derivative(lambda x: top(mpi, 1, dist, x, theta), mu) * std
+  dd = -derivative(lambda x: top(mpi, 1, R, x, theta), mu) * std
   return dd

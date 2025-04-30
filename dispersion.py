@@ -21,7 +21,7 @@ for i in range(3):
 
   plt.fill_between(xx, yy1, yy2, color=colors[i], alpha=0.1, label=labels[i])
   plt.plot(xx, yy1, color=colors[i])
-  plt.plot(xx, yy2, color=colors[i])
+  plt.plot(xx, yy2,proposalproposal color=colors[i])
 
 plt.margins(x=0)
 plt.ylabel("$\\theta_c$ [rad]")

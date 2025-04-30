@@ -1,5 +1,5 @@
-#import resolution.py
 #import resolution
-import trapping
+#import trapping
+import timeres
 
 print('finished...')

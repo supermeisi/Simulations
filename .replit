@@ -9,3 +9,14 @@ packages = ["cairo", "ffmpeg-full", "freetype", "ghostscript", "gobject-introspe
 
 [env]
 LANG = "en_US.UTF-8"
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Resolution"
+mode = "sequential"
+author = 3421973
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 resolution.py"
