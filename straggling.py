@@ -42,30 +42,46 @@ plt.tight_layout()
 plt.savefig('straggling.png', dpi=600)
 plt.savefig('straggling.pdf')
 
-np.random.seed(100)  # for reproducibility
-
-# Initial direction angle (in radians)
-theta = 0.0
-theta_history = [theta]
-
 p = 500  # momentum in MeV/c
-L = 4.0  # length of material in cm
+L = 2.0  # length of material in cm
 dx = L / N  # step size in cm
+N = 1000  # numbr of steps
 
-# Step through the material
-for _ in range(N):
-    sigma = f.highland_theta(p, f.beta(mass_muon, p), z_muon, dx,
-                             X0_fused_silica)
-    dtheta = np.random.normal(0, sigma)  # random angular kick
-    theta += dtheta  # accumulate angle
-    theta_history.append(theta)
+theta_tot = 0.0
 
-# Convert angle history to mrad
-theta_history_mrad = np.array(theta_history)
+theta_history_seeds = []
+
+# Loop over 100 different seeds
+for i in range(100):
+    np.random.seed(i)  # for reproducibility
+
+    # Initial direction angle (in radians)
+    theta = 0.0
+    theta_history = [theta]
+
+    # Step through the material
+    for _ in range(N):
+        sigma = f.highland_theta(p, f.beta(mass_muon, p), z_muon, dx,
+                                 X0_fused_silica)
+        theta = np.random.normal(theta, sigma)  # random angular kick
+        theta_history.append(theta)
+
+    theta_history_seeds.append(theta_history)
+
+    # Convert angle history to mrad
+    theta_history_mrad = np.array(theta_history)
+
+    print(theta_history_mrad.std())
+
+    theta_tot += theta_history_mrad.std()
+
+theta_tot /= 100
+
+print(theta_tot)
 
 # Plot
 fig = plt.figure(figsize=(7, 4))
-plt.plot(np.linspace(0, L, N + 1), theta_history_mrad)
+plt.plot(np.linspace(0, L, N + 1), theta_history_seeds[0])
 plt.xlabel("Depth [cm]")
 plt.ylabel("Angle relative to initial direction [mrad]")
 plt.title("Accumulated Angular Straggling (1D projection)")

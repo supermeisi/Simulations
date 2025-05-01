@@ -21,7 +21,7 @@ for i in range(3):
 
   plt.fill_between(xx, yy1, yy2, color=colors[i], alpha=0.1, label=labels[i])
   plt.plot(xx, yy1, color=colors[i])
-  plt.plot(xx, yy2,proposalproposal color=colors[i])
+  plt.plot(xx, yy2, color=colors[i])
 
 plt.margins(x=0)
 plt.ylabel("$\\theta_c$ [rad]")
@@ -30,7 +30,7 @@ plt.ylim(0.5, 0.9)
 plt.legend()
 plt.grid()
 #plt.title('Group Velocity')
-fig.tight_layout()
+plt.tight_layout()
 plt.savefig('dispersion.pdf')
 plt.savefig('dispersion.png', dpi=600)
 plt.show()
