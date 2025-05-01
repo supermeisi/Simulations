@@ -21,8 +21,8 @@ theta_min = 5 * math.pi / 180
 pmin = 0.5
 pmax = 1.5
 
-mpi = 0.13957039
 mmu = 0.1056583755
+mpi = 0.13957039
 mK = 0.493677
 
 wlen_min = 200

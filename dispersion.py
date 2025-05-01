@@ -1,10 +1,13 @@
-from functions import *
+import matplotlib.pyplot as plt
+import numpy as np
 
-m = [mmu, mpi, mK]
+import functions as f
+
+m = [f.mmu, f.mpi, f.mK]
 colors = ['b', 'g', 'r']
 labels = ['mu', 'pi', 'K']
 
-fig = plt.figure(figsize=(4, 3))
+fig = plt.figure(figsize=(5, 4))
 
 for i in range(3):
   xx = []
@@ -12,8 +15,8 @@ for i in range(3):
   yy2 = []
 
   for p in np.arange(0.1, 4., 0.01):
-    cherenkov_angle_min = cherenkov(beta(m[i], p), rindex(300.))
-    cherenkov_angle_max = cherenkov(beta(m[i], p), rindex(800.))
+    cherenkov_angle_min = f.cherenkov(f.beta(m[i], p), f.rindex(300.))
+    cherenkov_angle_max = f.cherenkov(f.beta(m[i], p), f.rindex(800.))
 
     xx.append(p)
     yy1.append(cherenkov_angle_min)
@@ -26,12 +29,10 @@ for i in range(3):
 plt.margins(x=0)
 plt.ylabel("$\\theta_c$ [rad]")
 plt.xlabel("$p$ [GeV/c]")
-plt.ylim(0.5, 0.9)
+plt.ylim(0.7, 0.85)
 plt.legend()
 plt.grid()
 #plt.title('Group Velocity')
 plt.tight_layout()
 plt.savefig('dispersion.pdf')
 plt.savefig('dispersion.png', dpi=600)
-plt.show()
-plt.close()

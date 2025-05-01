@@ -1,5 +1,6 @@
 #import resolution
 #import trapping
-import timeres
+#import timeres
+import wavelength
 
 print('finished...')
