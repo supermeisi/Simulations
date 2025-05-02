@@ -48,8 +48,10 @@ dx = L / N  # step size in cm
 N = 1000  # numbr of steps
 
 theta_tot = 0.0
+theta_tot_corrected = 0.0
 
 theta_history_seeds = []
+theta_history_seeds_corrected = []
 
 # Loop over 100 different seeds
 for i in range(100):
@@ -58,6 +60,7 @@ for i in range(100):
     # Initial direction angle (in radians)
     theta = 0.0
     theta_history = [theta]
+    theta_history_corrected = [theta]
 
     # Step through the material
     for _ in range(N):
@@ -66,25 +69,38 @@ for i in range(100):
         theta = np.random.normal(theta, sigma)  # random angular kick
         theta_history.append(theta)
 
+    theta_start = theta_history[0]
+    theta_end = theta_history[-1]
+    track_fit = np.linspace(theta_start, theta_end, N + 1)
+
+    theta_history_corrected = theta_history - track_fit
+
     theta_history_seeds.append(theta_history)
+    theta_history_seeds_corrected.append(theta_history_corrected)
 
     # Convert angle history to mrad
     theta_history_mrad = np.array(theta_history)
+    theta_history_mrad_corrected = np.array(theta_history_corrected)
 
-    print(theta_history_mrad.std())
+    print(theta_history_mrad.std(), theta_history_mrad_corrected.std())
 
     theta_tot += theta_history_mrad.std()
+    theta_tot_corrected += theta_history_mrad_corrected.std()
 
 theta_tot /= 100
+theta_tot_corrected /= 100
 
-print(theta_tot)
+print(theta_tot, theta_tot_corrected)
 
 # Plot
 fig = plt.figure(figsize=(7, 4))
-plt.plot(np.linspace(0, L, N + 1), theta_history_seeds[0])
-plt.xlabel("Depth [cm]")
-plt.ylabel("Angle relative to initial direction [mrad]")
-plt.title("Accumulated Angular Straggling (1D projection)")
+plt.plot(np.linspace(0, L, N + 1), theta_history_seeds[0], label='Uncorrected')
+plt.plot(np.linspace(0, L, N + 1),
+         theta_history_seeds_corrected[0],
+         label='Corrected')
+plt.xlabel("$x$ [cm]")
+plt.ylabel("$\theta$ [mrad]")
+plt.title("Accumulated Angular Straggling")
 plt.grid()
 plt.tight_layout()
 plt.savefig('straggling_step.png', dpi=600)
