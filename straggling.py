@@ -138,8 +138,9 @@ with open('straggling.txt', 'w') as file:
 
                 # print(theta_history_mrad.std(), theta_history_mrad_corrected.std())
 
-                theta_tot += theta_history_mrad.std()
-                theta_tot_corrected += theta_history_mrad_corrected.std()
+                theta_tot += np.sqrt(np.mean(theta_history_mrad**2))
+                theta_tot_corrected += np.sqrt(
+                    np.mean(theta_history_mrad_corrected**2))
 
             theta_tot /= N_tracks
             theta_tot_corrected /= N_tracks
