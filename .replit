@@ -11,7 +11,7 @@ packages = ["cairo", "ffmpeg-full", "freetype", "ghostscript", "gobject-introspe
 LANG = "en_US.UTF-8"
 
 [workflows]
-runButton = "Straggling"
+runButton = "Energy"
 
 [[workflows.workflow]]
 name = "Resolution"
@@ -48,3 +48,12 @@ author = 3421973
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python3 wavelength.py"
+
+[[workflows.workflow]]
+name = "Energy"
+mode = "sequential"
+author = 3421973
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python3 energy.py"
