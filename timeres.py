@@ -16,6 +16,8 @@ steps = 100
 
 arr = np.zeros((steps, steps))
 
+n = 3.  # separation power
+
 for i in range(steps):
   for j in range(steps):
     p = pmin + i * 1.0 / 100 * (pmax - pmin)
@@ -24,7 +26,7 @@ for i in range(steps):
     top1 = f.top(m[0], p, f.R, 500, theta) * 1e12
     top2 = f.top(m[1], p, f.R, 500, theta) * 1e12
 
-    res = top2 - top1
+    res = 1 / n * (top2 - top1)
 
     arr[i, j] = res
 
@@ -67,7 +69,7 @@ for i in range(steps):
     top1 = f.top(m[1], p, f.R, 500, theta) * 1e12
     top2 = f.top(m[2], p, f.R, 500, theta) * 1e12
 
-    res = top2 - top1
+    res = 1 / n * (top2 - top1)
 
     arr[i, j] = res
 
@@ -75,13 +77,14 @@ for i in range(steps):
     print(f'Time Resolution: {res} ps')
 
 fig = plt.figure(figsize=(5, 4))
-plt.imshow(arr,
-           aspect='auto',
-           cmap='gist_rainbow',
-           interpolation='nearest',
-           norm=colors.LogNorm(),
-           origin='lower',
-           extent=[pmin, pmax, theta_min / math.pi * 180, theta_max / math.pi * 180])
+plt.imshow(
+    arr,
+    aspect='auto',
+    cmap='gist_rainbow',
+    interpolation='nearest',
+    norm=colors.LogNorm(),
+    origin='lower',
+    extent=[pmin, pmax, theta_min / math.pi * 180, theta_max / math.pi * 180])
 levels = np.logspace(-1, 3, 20)
 plt.colorbar(label='$\Delta t$ [ps]', ticks=levels, format='%.1f')
 plt.title('Time Resolution $\pi/K$')
