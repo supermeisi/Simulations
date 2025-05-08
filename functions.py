@@ -1,12 +1,12 @@
-import numpy as np
 import math
-import matplotlib.pyplot as plt
-from matplotlib import cm
-from matplotlib import colors
 import random as rand
+
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+from matplotlib import cm, colors
 from scipy.integrate import quad
 from scipy.misc import derivative
-import matplotlib.patches as patches
 
 # parameters
 steps = 100
@@ -17,9 +17,17 @@ D = 20e-3  #Radiator thickness [m]
 d_fel = 0  #Focusing optics length [m]
 theta_max = 35 * math.pi / 180
 theta_min = 5 * math.pi / 180
+I = 135e-6  # MeV
+rho = 2.2  # g/cm^3
+Z = 10
+A = 20
+K = 0.307075  # MeV mol^-1 cm^2
+z = 1
 
 pmin = 0.5
 pmax = 1.5
+
+me = 0.511  # electron mass [MeV]
 
 mmu = 0.1056583755
 mpi = 0.13957039
@@ -158,3 +166,11 @@ def highland_theta(p, beta, z, dx, X0):
   theta0_rad = (13.6 / (beta * p)) * z * np.sqrt(
       dx / X0) * (1 + 0.038 * np.log(dx / X0))
   return theta0_rad * 1000  # convert to mrad
+
+
+# Bethe-Bloch formula
+def bethe_bloch(m, beta, gamma):
+  Wmax = (2 * me * beta**2 * gamma**2) / (1 + 2 * gamma * me / m + (me / m)**2)
+  term1 = np.log((2 * me * beta**2 * gamma**2 * Wmax) / (I**2))
+  dEdx = K * z**2 * (Z / A) * (1 / beta**2) * (term1 - beta**2)
+  return dEdx * rho  # MeV/cm
