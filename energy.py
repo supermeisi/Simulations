@@ -22,7 +22,7 @@ plt.savefig('cherenkov_angle.pdf')
 plt.close()
 
 # Grid definitions
-momenta_GeV = np.linspace(0.5, 2.0, 100)  # GeV/c
+momenta_GeV = np.linspace(0.5, 1.5, 100)  # GeV/c
 momenta = momenta_GeV * 1000  # MeV/c
 thicknesses = np.linspace(0.1, 4.0, 100)  # cm
 step_cm = 0.01
