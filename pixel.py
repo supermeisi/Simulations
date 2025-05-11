@@ -36,7 +36,7 @@ plt.title('Number of Pixels')
 plt.xlabel('$p$ [GeV/c]')
 plt.ylabel('$\\theta_p$ [deg]')
 cbar2 = fig.colorbar(im2)
-cbar2.set_label('$\sigma$ [mrad]')
+cbar2.set_label('$N$')
 
 plt.tight_layout()
 plt.savefig('pixel.png', dpi=600)
