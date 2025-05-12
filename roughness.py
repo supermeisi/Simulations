@@ -30,7 +30,7 @@ plt.figure(figsize=(5, 4))
 im = plt.imshow(transmission, extent=[roughness[0]*1e9, roughness[-1]*1e9, path_length[0], path_length[-1]],
                 origin='lower', aspect='auto', cmap='rainbow')
 cbar = plt.colorbar(im)
-cbar.set_label('T')
+cbar.set_label('$R_\\mathrm{TIS}$')
 
 plt.xlabel('$\sigma$ [nm]')
 plt.ylabel('$L$ [m]')
