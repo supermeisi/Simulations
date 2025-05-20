@@ -52,7 +52,7 @@ plt.savefig('timeres_mupi.pdf')
 plt.close()
 
 pmin = 1.5
-pmax = 4
+pmax = 6
 
 theta_min = 5 * math.pi / 180
 theta_max = 35 * math.pi / 180
